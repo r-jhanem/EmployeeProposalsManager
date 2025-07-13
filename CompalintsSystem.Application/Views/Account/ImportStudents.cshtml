@@ -1,0 +1,45 @@
+﻿@model Microsoft.AspNetCore.Http.IFormFile
+@*@model AddUserViewModel*@
+
+
+<div class="row">
+    <div class="col-md-10 mx-auto col-lg-5" dir="rtl">
+        <div class="col-md-12" >
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="card">
+                    <h5 class="card-header" align="center" style="font-family: 'Cairo'; font-size:24px"> <ion-icon name="person-add-outline"></ion-icon> استيراد بيانات الطلاب  </h5>
+                    <div class="card-body">
+
+
+    
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-success">@ViewBag.Message</div>
+    }
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="excelFile">اختر ملف Excel:</label>
+            <input type="file" name="excelFile" id="excelFile" class="form-control-file" accept=".xlsx, .xls" required />
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-person-up"></i>   استيراد</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#excelFile').change(function () {
+                var fileInput = $(this);
+                var fileName = fileInput.val().split('\\').pop();
+                fileInput.next('.custom-file-label').addClass("selected").html(fileName);
+            });
+        });
+    </script>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+

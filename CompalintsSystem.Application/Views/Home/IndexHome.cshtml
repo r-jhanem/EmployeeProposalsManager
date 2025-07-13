@@ -1,0 +1,178 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout_Home.cshtml";
+  
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>صفحتي الرئيسية</title>
+    <style>
+        body {
+            margin: 0;
+            padding-top: 0;
+        }
+
+        #header {
+            background-color: black;
+            height: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .full-width-image {
+            width: 100%;
+            height: 30vh; /* بدلاً من 30٪ */
+        }
+
+        #header img {
+            height: 30px;
+        }
+
+        #navbar {
+            background-color: lightgray;
+            height: 50px;
+        }
+
+            #navbar button {
+                margin: 5px;
+                padding: 10px;
+                background-color: blue;
+                color: white;
+            }
+
+        #content {
+            padding: 0px;
+            /*height: calc(100vh - 110px);*/ /* يسمح بالتمرير بين العناصر */
+               padding-bottom:-310px;
+            overflow-y: auto; /* يسمح بإظهار شريط التمرير فقط عند الحاجة */
+        }
+
+        #footer {
+            background-color: lightgray;
+            height: 100px;
+        }
+
+            #footer a {
+                margin: 10px;
+                color: black;
+                text-decoration: none;
+            }
+
+        #printContentss {
+            background-color: black;
+            color: white;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* إضافة الشريط السابق */
+        .previous-bar {
+            height: 8%;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+        }
+
+        #header a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px; /* يمكنك تعديل قيمة الحجم حسب الحجم المطلوب */
+            transition: color 0.3s, background-color 0.3s;
+            font-weight: bold; /* تحديد الخط العريض */
+        }
+
+            #header a:hover {
+                color: blue; /* يمكنك تغيير اللون حسب اللون المطلوب */
+                background-color: lightgray; /* يمكنك تغيير اللون حسب اللون المطلوب */
+            }
+
+        #header ul {
+            direction: rtl; /* تعيين الاتجاه من اليمين إلى اليسار */
+        }
+
+        #header li {
+            display: inline-block; /* عرض العناصر في سطر واحد */
+            margin: 0 10px; /* تعديل هوامش العناصر حسب الحاجة */
+        }
+
+    </style>
+   
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css"/>
+
+</head>
+<body sstyle="font-family: 'DroidArabicKufiRegular'; 
+   font-weight: normal; 
+   font-style: normal;" >
+    <div id="header" style=" font-family: 'Droid Arabic Kufi', sans-serif;">
+        <a>
+            اليوم الموافق:&nbsp;
+            <span href="#" id="currentDate"></span>
+        </a>
+        <div>
+            <a href="#">الصفحة الرئيسية</a>&nbsp;&nbsp;&nbsp;
+        
+            <a href="#"> عـنــا</a>
+        </div>
+    </div>
+    <div>
+        <img src="~/dddd.png" alt="صورة" class="full-width-image">
+    </div>
+    <div  id="navbar"  align="right">
+     <div  id="navbar" class="container d-flex justify-content-between flex-wrap" style=" font-family: 'Droid Arabic Kufi', sans-serif;">
+    <div id="navbar" dir="rtl" style=" font-family: 'Droid Arabic Kufi', sans-serif;">
+
+        <div class="bd-example" align="right">
+            <button style="float:right; border:1px solid green;" class="btn btn-primary me-1" onclick="location.href='@Url.Action("Index", "Home")'">
+                                 تسحيل الدخول
+                                </button>
+        </div>
+    </div>
+
+
+    <div id="navbar" dir="rtl" style=" font-family: 'Droid Arabic Kufi', sans-serif;">
+        <div class="bd-example">
+            <div class="btn-group w-100 align-items-center justify-content-between flex-wrap">
+               
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div  align="center">
+        <div>
+            <img src="~/SH.jpg" alt="صورة" width="20%" height="20%">
+            <p>نظام ادارة الشكوى الجامعي</p>
+        </div>
+    </div>
+
+   
+
+    <script>
+        var currentDateElement = document.getElementById("currentDate");
+        var currentDate = new Date();
+        var days = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+        var months = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+
+        var currentDateString = days[currentDate.getDay()] + ", " + currentDate.getDate() + " " + months[currentDate.getMonth()] + " " + currentDate.getFullYear();
+
+        currentDateElement.innerHTML = currentDateString;
+    </script>
+
+    <script src="~/EM/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../cheatsheet/cheatsheet.js"></script>
+</body>
+</html>
+

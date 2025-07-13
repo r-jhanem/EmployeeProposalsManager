@@ -1,0 +1,158 @@
+.button {
+	display: flex;
+	height: 50px;
+	padding-left: 50px;
+	background: #009578;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	overflow: hidden;
+	font-family: "Quicksand", sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	width:max-content;
+}
+
+.button:hover {
+	background: #008168;
+}
+
+.button:active {
+	background: #006e58;
+}
+
+.button__text,
+.button__icon {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 24px;
+	color: #fff;
+	height: 100%;
+	font:bold;
+	font-size:x-large;
+}
+
+.button__icon {
+	font-size: 1.5em;
+	background: rgba(0, 0, 0, 0.08);
+}
+.buttonsub {
+	display: flex;
+	height: 30px;
+	padding-left: 100px;
+	background: #009578;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	overflow: hidden;
+	font-family: "Quicksand", sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	width: max-content;
+	margin-top: 5px;
+}
+
+.buttonsub:hover {
+		background: #008168;
+	}
+
+.buttonsub:active {
+		background: #006e58;
+	}
+
+
+.buttonsub__icon {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 24px;
+	color: #fff;
+	height: 100%;
+}
+.buttonsub__text {
+	display: inline-flex;
+	align-items: center;
+	
+	color: #fff;
+	height: 100%;
+	font:large;
+	font:bold;
+	font-size:large;
+}
+
+.buttonsub__icon {
+	font-size: 1.5em;
+	background: rgba(0, 0, 0, 0.08);
+}
+.buttonsub1 {
+	display: flex;
+	height: 30px;
+	padding-left: 70px;
+	background: #009578;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	overflow: hidden;
+	font-family: "Quicksand", sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	width: max-content;
+	margin-top: -10px;
+}
+.button__t,
+.button__i {
+	display: inline-flex;
+	align-items: center;
+	padding: 0px;
+	color: #fff;
+	height: 100%;
+	font: bold;
+	font-size: x-large;
+}
+
+
+
+.buttons {
+	display: flex;
+	height: 50px;
+	padding-left: 50px;
+	background: #009578;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	overflow: hidden;
+	font-family: "Quicksand", sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	width: max-content;
+}
+	.buttons:hover {
+		background: #008168;
+	}
+.buttons:active {
+    background: #006e58;
+}
+
+.buttons__icon {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 24px;
+	color: #fff;
+	height: 100%;
+}
+.buttons__text {
+	display: inline-flex;
+	align-items: center;
+	color: #fff;
+	height: 100%;
+	font: large;
+	font: bold;
+	font-size: large;
+}
+
+
+
+

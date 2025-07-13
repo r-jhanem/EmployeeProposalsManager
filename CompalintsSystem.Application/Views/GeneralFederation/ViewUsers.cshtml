@@ -1,0 +1,346 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CompalintsSystem.Core;
+@inject UserManager<ApplicationUser> UserManager;
+@inject RoleManager<IdentityRole> roleManager;
+@inject SignInManager<ApplicationUser> signInManager;
+@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "كل المستخدمين";
+    ViewData["subTitle"] = "حسابات المدراء";
+}
+
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="btn btn-primary me-1" >
+                <span class="btn btn-primary me-1" >الحسابات    /          مدراء الكلية </span> 
+            </h4>
+
+
+            <div class="card">
+                <div class="row mx-2  ">
+                    <div class="col-md-6">
+                        <div class="t-d">
+                            <h5 class="card-header title-t"> الحسابات </h5>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dropdown" style="text-align-last: end;">
+
+                            @{
+
+
+                                <div class="btn-group">
+                                    <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
+                        line-height: 1.99;
+                        width: 152.35px;">العدد الكلي @ViewBag.totalUsers</span>
+                    </div>
+
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-datatable table-responsive">
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+
+                        <div class="row mx-2 border-bottom ">
+                          
+                            <div class=" col-12 justify-content-between">
+                                <button style="float:left; border:1px solid green;" class="btn btn-primary me-1" onclick="location.href='@Url.Action("Create", "GeneralFederation")'">
+                                    اضــــافة مستخدم  +
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div id="view-all-users" class="table-responsive text-nowrap">
+                        <table id="TableWithFilter" class="datatables-users table border-top ">
+                       
+                            <thead>
+                                <tr>
+
+                                    <th> الاسم </th>
+                                    <th> الكلية </th>
+                                    <th> الصلاحية </th>
+                                    <th>تاريخ الانشاء </th>
+                                    <th>الفعالية</th>
+                                    <th> إجراء</th>
+                                    @*<th>تغير الحالة</th>*@
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+
+                                        <td>@user.FullName </td>
+                                        <td>
+                                            @*@foreach (Colleges gov  in Model.)
+                        {*@
+                                            @user.Colleges.Name
+                                        </td>
+
+                                        <td>
+                                            @if (await UserManager.IsInRoleAsync(user, UserRoles.AdminGeneralFederation))
+                                            {
+                                                <span class="badge bg-label-success">مدير عام</span>
+                                            } 
+                                            else if (await UserManager.IsInRoleAsync(user, UserRoles.AdminColleges))
+                                            {
+                                                <span class="badge bg-label-warning">عميد كلية</span>
+                                            }
+                                            else if (await UserManager.IsInRoleAsync(user, UserRoles.AdminDepartments))
+                                            {
+                                                <span class="badge bg-label-warning">رئيس قسم</span>
+                                            }
+                                            else if (await UserManager.IsInRoleAsync(user, UserRoles.AdminSubDepartments))
+                                            {
+                                                <span class="badge bg-label-warning">موظف الشكاوى للطلاب</span>
+                                            }
+
+                                            else if (await UserManager.IsInRoleAsync(user, UserRoles.Beneficiarie))
+                                            {
+                                                <span class="badge bg-label-warning">طالب</span>
+                                            }
+                                        </td>
+
+
+
+                                        <td>@user.CreatedDate.ToString("MM/dd/yyyy") </td>
+
+                                        @if (user.EmailConfirmed)
+                                        {
+
+
+                                            <td>
+                                                <span class="badge bg-success text-white@(user.EmailConfirmed)">
+
+                                                    <i class="fa fa-circle" aria-hidden="true"> @(user.EmailConfirmed ? "نشط": "مقيد")</i>
+                                                </span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+
+                                                <span class="badge bg-danger text-white@(user.EmailConfirmed)">
+
+                                                    <i class="fa fa-circle" aria-hidden="true"> @(user.EmailConfirmed ? "نشط" : "مقيد")</i>
+                                                </span>
+                                            </td>
+                                        }
+
+                                        <td style="">
+                                            <div class="d-inline-block">
+                                                <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a class="dropdown-item" asp-action="Details" asp-route-id="@user.Id">عرض</a></li>
+
+                                                    <li><a class="dropdown-item" asp-action="UserReportAsPDF" asp-route-id="@user.Id">تقرير</a></li>
+
+                                                    <li>
+
+                                                        <a class="dropdown-item" data-model-id="@user.Id" onclick="Delete(this)">حذف</a>
+
+                                                      
+                                                    </li>
+                                                    <li>
+                                                        @if (user.EmailConfirmed)
+                                                        {
+                                                            <a class="dropdown-item" asp-action="DisbleOrEnableUser" asp-route-id="@user.Id">توقيف</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="dropdown-item" asp-action="DisbleOrEnableUser" asp-route-id="@user.Id">تنشيط</a>
+
+                                                        }
+
+
+
+
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                            <a class="btn btn-sm btn-icon item-edit" asp-action="Edit" asp-route-id="@user.Id"><i class="bx bxs-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                           
+                           
+                        </table>
+</div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="content-backdrop fade"></div>
+</div>
+<!-- Content wrapper -->
+
+
+@section Scripts{
+
+    <script>
+
+        function Delete(obj) {
+            var ele = $(obj);
+            var Id = ele.data("model-id");
+
+            Swal.fire({
+                title: 'هل انت متأكد من الحذف ؟',
+                    text: "سيتم حذف المستخدم بشكل نهائي  !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonText: 'الغاء ',
+                confirmButtonText: 'نعم  !',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/ManageUsers/Delete',
+                        type: "user",
+                        async: true,
+                        data: { id: Id },
+                        success: function (result) {
+                            if (result.data.success) {
+                                toastr["success"](result.data.message, "تم الحذف بنجاح");
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000); // تم تأخير إعادة التحميل لمدة ثانية واحدة
+                            } else {
+                                toastr["error"](result.data.errors, "BLOGI BLOG");
+                            }
+
+                            console.log(result); // Log the result object so that you can check for errors
+                        }
+                    });
+                }
+            });
+        }
+
+            function functionConfirm(event) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                    title: 'هل انت متأكد من الحذف ؟',
+                    text: "سيتم حذف المستخدم بشكل نهائي  !",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'نعم  !',
+                    cancelButtonText: 'الغاء ',
+                    reverseButtons: true,
+                    timer: 10000
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("form").submit();
+
+                        swalWithBootstrapButtons.fire({
+                            title: 'تم الحذف !',
+                            text: 'تمت عملية الحذف بنجاح .',
+                            icon: 'success',
+                            timer: '200000'
+                        }
+                        )
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            ' تم إلغاء الحذف',
+                            '',
+                            'error'
+                        )
+                    }
+                })
+            }
+        </script>
+
+ 
+        @*<script>
+            function functionConfirm(event) {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                    title: 'Emin misiniz?',
+                    text: "Bu işlem geri alınamaz!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'Hayır, iptal',
+                    reverseButtons: true,
+                    timer: 3000
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("form").submit();
+
+                        swalWithBootstrapButtons.fire({
+                            title: 'Silindi!',
+                            text: 'Kategori silindi.',
+                            icon: 'success',
+                            timer: '2000'
+                        }
+                        )
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            'İptal edildi',
+                            '',
+                            'error'
+                        )
+                    }
+                })
+            }
+        </script>*@
+
+
+        <script>
+
+            //فلترة نوع الشاكي
+            $("#FilterUsers").change(function () {
+                var value = $(this).val().toLowerCase();
+                $(".table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+
+        </script>
+
+
+    }
+

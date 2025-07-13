@@ -1,0 +1,216 @@
+﻿@model IEnumerable<UsersCommunication>
+
+
+
+
+@{
+    ViewData["Title"] = " البلاغات المقدمة";
+    ViewData["SubTitle"] = "إدارة البلاغات ";
+    ViewData["SubTitle2"] = " على الموظفين";
+}
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+        <!-- Users List Table -->
+
+
+
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="breadcrumb-wrapper py-3 mb-4">
+                <span class="text-muted fw-light">@ViewData["SubTitle"]/</span>@ViewData["SubTitle2"]
+            </h4>
+
+            <div class="card">
+
+                <div class="row mx-2  ">
+                    <div class="col-md-6">
+                        <div class="t-d">
+                            <h5 class="card-header title-t"> البلاغات</h5>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="dropdown" style="text-align-last: end;">
+
+                            @{
+
+
+                                <div class="btn-group">
+                                    <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
+                        line-height: 1.99;
+                        width: 152.35px;">العدد الكلي @ViewBag.totalCompalints</span>
+                    </div>
+
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-datatable table-responsive">
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+
+                        <div class="row mx-2 border-bottom ">
+                            <div class="row align-items-start">
+                                <div class="row align-items-start">
+                                    <div class="category-filter" style="width:150px">
+                                      
+                                    </div>
+
+                                    <div class="col-12 col-md-6  d-flex mb-4 justify-content-center justify-content-md-start">
+                                        <div class="me-3 table-type search-paddind">
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="table-responsive text-nowrap">
+                            <table id="example" class="datatables-users table border-top ">
+
+                                <thead>
+                                    <tr>
+                                        <th>عنوان البلاغ </th>
+                                        <th>تاريخ البلاغ </th>
+                                        <th> نوع البلاغ </th>
+                                        <th>  اسم المبلغ عليه</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="3" style="color:red">
+                                                لا يوجد نتائج
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+
+                                                <td> @item.Titile </td>
+                                                <td> @item.CreateDate </td>
+                                                <td> @item.TypeCommunication.Type </td>
+                                                <td> @item.reporteeName </td>
+                                               
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn dropdown-toggle hide-arrow p-0"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <button type="button"
+                                                            class="btn btn-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="@("#ShowCommunication-"+item.Id)" data-url="@Url.Action($"ShowCommunication/{item.Id}")">
+                                                        عرض 
+                                                    </button>
+                                                              
+
+                                                            
+
+
+                                                            <td>
+                                                  @*  <button type="button"
+                                                            class="btn btn-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="@("#ShowCommunication-"+item.Id)" data-url="@Url.Action($"ShowCommunication/{item.Id}")">
+                                                        عرض 
+                                                    </button>*@
+                                                    @await Html.PartialAsync("_ShowCommunication", item)
+                                                </td>
+
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                    </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+
+    <script>
+
+
+        $('#CustomSearchTextField').keyup(function () {
+
+            oTable.search($(this).val()).draw();
+
+        });
+
+        var oTable = $('#example').DataTable({
+
+            language: {
+                "loadingRecords": "جارٍ التحميل...",
+                "lengthMenu": "أظهر _MENU_ مدخلات",
+                "zeroRecords": "لم يعثر على أي ",
+                "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                "search": "ابحث:",
+                "searchPlaceholder": "بحث عن ",
+                "paginate": {
+                    "first": "الأول",
+                    "previous": "السابق",
+                    "next": "التالي",
+                    "last": "الأخير"
+                }
+
+            },
+
+            "paging": true,
+            "lengthChange": false,
+            /*"searching": true,*/
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": false,
+            "searching": true,
+            //dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+            displayLength: 4,
+            //lengthMenu: [5, 10, 25, 50, 75, 100],
+            //"columnDefs": [
+            //    target: 1,
+            //    ordering: true
+            //],
+        });   //using Capital D, which is mandatory to retrieve "api" datatables' object, latest jquery Datatable
+
+
+
+
+
+    </script>
+}
+
+

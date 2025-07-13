@@ -1,0 +1,131 @@
+﻿
+
+@model ClsComModelView
+
+
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="breadcrumb-wrapper py-3 mb-4">
+            <span class="text-muted fw-light">تحويل شكوى  /</span> تحويل شكوى
+        </h4>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                </ul>
+                <div class="card mb-4">
+                    <h5 class="card-header">تحويل شكوى</h5>
+                    <!-- Account -->
+                    <div class="card-body">
+                        <div class="gap-4 d-flex align-items-start align-items-sm-center">
+
+                            <div class="button-wrapper">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-0" />
+                    <div class="card-body">
+                        <form asp-action="ClsComModleView" method="POST">
+                             <div class="form-group">
+                <input asp-for="ClsComplaintId" type="hidden" value="@ViewBag.ClsComplaintId" />
+            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                              
+                                    <label class="form-label" for="ClsCompltintClssictionId">اختر التصنيف</label>
+                <select asp-for="ClsCompltintClssictionId" class="form-control" asp-items="@ViewBag.ClsCompltintClssictionId"></select>
+            </div>
+                                       <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="country">الصلاحية</label>
+                                     <select id="SelectedCountryId"  asp-for="ClsTypeEmplloyId" class="form-control" asp-items="@(new SelectList(new List<SelectListItem>
+                                      {  
+                                           new SelectListItem { Selected = true, Text = "قم بإختيار الصلاحية الممنوحة"},
+                                          new SelectListItem { Selected = false, Text = " العميد  ", Value = 2.ToString() },
+                                          new SelectListItem { Selected = false, Text = "رئيس قسم ", Value = 3.ToString() }} , "Value", "Text", 3))"> </select>
+    
+   
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">  اختر المختص</label>
+
+                                <select id="SelectedCityId" class="form-control" asp-for="ClsEmplloyOfficerId" asp-items="@(new SelectList(String.Empty,"Id","FullName"))">
+                                    <option value="">حدد المختص</option>
+                                </select>
+                                <span asp-validation-for="ClsEmplloyOfficerId" class="text-danger"></span>
+
+                            </div>
+                         
+
+                            </div>
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-success  btn-primary" id="type-success">
+                                    تحويل
+                                    
+                                </button>
+
+                                <button type="reset" class="btn btn-label-secondary">إلغاء</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+
+        <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+        <div class="drag-target"></div>
+    </div>
+    </div>
+    <!-- / Layout wrapper -->
+    <!-- Core JS -->
+    @section Scripts{
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle the change event of the country select element
+        $('#SelectedCountryId').change(function () {
+            var countryId = $(this).val();
+            if (countryId) {
+                // Make an AJAX request to get the cities for the selected country
+                $.ajax({
+                    url: '@Url.Action("GetDirectorateies", "SubManageComplaints")',
+                    type: 'POST',
+                    data: { userRoles: countryId },
+                    success: function (response) {
+                        // Clear and repopulate the city select element
+                        var citySelect = $('#SelectedCityId');
+                        citySelect.empty();
+                        $.each(response, function (index,city) {
+                            citySelect.append($('<option></option>')
+                                .val(city.value)
+                                .text(city.text));
+                        });
+                    }
+                });
+            } else {
+                // If no country is selected, clear the city select element
+                $('#SelectedCityId').empty();
+            }
+        });
+    });
+</script>
