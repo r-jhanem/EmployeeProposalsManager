@@ -1,1 +1,11 @@
 # EmployeeProposalsManager
+![Login](https://github.com/user-attachments/assets/8ae92f31-ebf9-4cfc-b109-1da6c164861a)
+![Add account](https://github.com/user-attachments/assets/4ba96575-83df-43b6-901a-08efab4dd114)
+![This is some picture of code](https://github.com/user-attachments/assets/e05dad96-833e-48bf-9192-e6f651022f23)
+![This is some picture of  the code](https://github.com/user-attachments/assets/8a1ba614-6e4f-45b4-b69d-a1b0b349b4ba)
+![The accounts](https://github.com/user-attachments/assets/87362d8c-436f-4c20-89ef-b098fb0fd3fa)
+![Reports](https://github.com/user-attachments/assets/39659ef7-181a-4952-b761-8a6eca0a2198)
+![Print Report](https://github.com/user-attachments/assets/e4016073-9165-4ee9-986c-9a097aa2569e)
+![Message Successfuly Add](https://github.com/user-attachments/assets/9d997068-d5ca-4ff1-ba3d-ee18d44181c9)
+![MainAdmin](https://github.com/user-attachments/assets/7fbac8a8-1481-4b5c-a531-7e79eb5bb348)
+![Add Problam](https://github.com/user-attachments/assets/2a7bc03f-0b67-4238-8811-d45b6c5b7a7a)
